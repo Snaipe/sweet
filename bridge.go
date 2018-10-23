@@ -80,8 +80,10 @@ func (bridge Bridge) Run() {
 		}
 
 	forward:
-		if err := msg.WriteTo(bridge.i3); err != nil {
+		out := bufio.NewWriter(bridge.i3)
+		if err := msg.WriteTo(out); err != nil {
 			panic(err)
 		}
+		out.Flush()
 	}
 }
